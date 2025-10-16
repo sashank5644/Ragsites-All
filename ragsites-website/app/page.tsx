@@ -87,7 +87,7 @@ export default function Home() {
               },
               {
                 title: "Slow Response Times",
-                description: "Customers expect instant answers, but you can't be available 24/7",
+                description: "Customers expect instant answers, but you can&apos;t be available 24/7",
                 icon: "⏱️"
               },
               {
@@ -215,7 +215,7 @@ export default function Home() {
               Ready to Transform Your Business?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-100">
-              Let's discuss how our AI solutions can help you cut costs, increase revenue, and scale your business.
+              Let&apos;s discuss how our AI solutions can help you cut costs, increase revenue, and scale your business.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
