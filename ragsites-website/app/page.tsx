@@ -87,7 +87,7 @@ export default function Home() {
               },
               {
                 title: "Slow Response Times",
-                description: "Customers expect instant answers, but you can&apos;t be available 24/7",
+                description: "Customers expect instant answers, but you can't be available 24/7",
                 icon: "⏱️"
               },
               {
