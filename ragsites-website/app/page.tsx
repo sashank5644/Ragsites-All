@@ -2,6 +2,13 @@
 
 import { useState, useEffect } from 'react';
 
+// Declare fbq function for Meta Pixel
+declare global {
+  interface Window {
+    fbq?: (action: string, eventName: string) => void;
+  }
+}
+
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -44,6 +51,11 @@ export default function Home() {
                   href={CALENDAR_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && window.fbq) {
+                      window.fbq('track', 'Lead');
+                    }
+                  }}
                   className="group relative rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-purple-500/50 hover:shadow-2xl"
                 >
                   <span className="relative z-10">Book a Consultation</span>
@@ -222,6 +234,11 @@ export default function Home() {
                 href={CALENDAR_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.fbq) {
+                    window.fbq('track', 'Lead');
+                  }
+                }}
                 className="rounded-full bg-white px-8 py-4 text-lg font-semibold text-purple-600 shadow-sm hover:bg-gray-100 transition-all duration-300 hover:scale-105"
               >
                 Schedule Your Free Consultation
