@@ -11,9 +11,18 @@ declare global {
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentChat, setCurrentChat] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+
+  // Auto-rotate chat carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentChat((prev) => (prev + 1) % 3);
+    }, 4000); // Change every 4 seconds
+    return () => clearInterval(interval);
   }, []);
 
   // Placeholder Google Calendar link - replace with actual link
@@ -46,7 +55,7 @@ export default function Home() {
               <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
                 Cut costs, boost revenue, and never miss another opportunity with our customized AI solutions.
               </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href={CALENDAR_LINK}
                   target="_blank"
@@ -60,6 +69,12 @@ export default function Home() {
                 >
                   <span className="relative z-10">Book a Consultation</span>
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur"></div>
+                </a>
+                <a
+                  href="#demos"
+                  className="rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
+                >
+                  See Our AI in Action
                 </a>
               </div>
             </div>
@@ -215,6 +230,234 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Voice Agent Demo Section */}
+      <div id="demos" className="relative py-24 bg-gradient-to-b from-slate-900/50 to-slate-900">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-4">
+              See Our AI Voice Agent in Action
+            </h2>
+            <p className="text-lg text-gray-300">
+              Watch how our intelligent voice agent handles customer calls with natural conversation
+            </p>
+          </div>
+          <div className="mx-auto max-w-4xl">
+            <div className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 p-4 hover:border-purple-500/30 transition-all duration-300">
+              <video
+                controls
+                className="w-full rounded-xl"
+                poster="/video-thumbnail.jpg"
+              >
+                <source src="/voice-agent-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-gray-400 text-sm">
+                Our AI voice agent handles inbound calls, answers questions, qualifies leads, and books appointments - all while sounding completely natural.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Lead Reactivation Section */}
+      <div className="relative py-24 bg-slate-900/50">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-4">
+              AI Lead Reactivation Agent in Action
+            </h2>
+            <p className="text-lg text-gray-300">
+              See how businesses use our AI agents to communicate with their customers
+            </p>
+          </div>
+
+          {/* Chat Carousel */}
+          <div className="mx-auto max-w-md mb-12">
+            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-purple-600/10 to-blue-600/10 border border-white/20 backdrop-blur-sm" style={{ height: '600px' }}>
+              {/* Chat Header - Dynamic based on current chat */}
+              <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border-b border-white/10 px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
+                    AI
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">
+                      {currentChat === 0 && "Solar Agent"}
+                      {currentChat === 1 && "Roofing Agent"}
+                      {currentChat === 2 && "PowerFit Gym AI"}
+                    </div>
+                    <div className="text-green-400 text-xs flex items-center gap-1">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      Active
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Chat Messages - Rotating */}
+              <div className="p-6 h-[480px] overflow-y-auto">
+                {/* Chat 1 - Auto Repair Shop */}
+                <div className={`transition-all duration-500 ${currentChat === 0 ? 'opacity-100' : 'opacity-0 absolute'}`}>
+                  <div className="space-y-4">
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Hi, my check engine light just came on. Can I get it checked today?</p>
+                        <p className="text-gray-300 text-xs mt-1">9:14 AM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Of course! I can help you with that. We have availability at 2:00 PM or 4:30 PM today. Which works better for you?</p>
+                        <p className="text-gray-400 text-xs mt-1">9:15 AM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">2:00 PM works great! How long will it take?</p>
+                        <p className="text-gray-300 text-xs mt-1">9:16 AM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">The diagnostic usually takes 30-45 minutes. I&apos;ve booked you in for 2:00 PM today. You&apos;ll receive a confirmation text shortly! 🚗</p>
+                        <p className="text-gray-400 text-xs mt-1">9:16 AM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Perfect, thank you!</p>
+                        <p className="text-gray-300 text-xs mt-1">9:17 AM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat 2 - Dental Practice */}
+                <div className={`transition-all duration-500 ${currentChat === 1 ? 'opacity-100' : 'opacity-0 absolute'}`}>
+                  <div className="space-y-4">
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Hi Sarah! It&apos;s been 6 months since your last cleaning. Would you like to schedule your next appointment?</p>
+                        <p className="text-gray-400 text-xs mt-1">2:32 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Yes! I&apos;ve been meaning to call. Do you have any morning slots next week?</p>
+                        <p className="text-gray-300 text-xs mt-1">2:45 PM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Perfect! I have Tuesday at 9:00 AM or Thursday at 10:30 AM available. Which would you prefer?</p>
+                        <p className="text-gray-400 text-xs mt-1">2:46 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Thursday at 10:30 works perfectly!</p>
+                        <p className="text-gray-300 text-xs mt-1">2:48 PM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Great! You&apos;re all set for Thursday, Nov 14th at 10:30 AM with Dr. Chen. I&apos;ll send you a reminder the day before! 😊</p>
+                        <p className="text-gray-400 text-xs mt-1">2:48 PM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat 3 - Fitness Gym */}
+                <div className={`transition-all duration-500 ${currentChat === 2 ? 'opacity-100' : 'opacity-0 absolute'}`}>
+                  <div className="space-y-4">
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Hey! Do you still have spots in the 6pm HIIT class tomorrow?</p>
+                        <p className="text-gray-300 text-xs mt-1">5:22 PM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Yes! We have 3 spots left in tomorrow&apos;s 6pm HIIT class. Would you like me to reserve one for you?</p>
+                        <p className="text-gray-400 text-xs mt-1">5:23 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">Yes please! Also, can you recommend any other classes for weight loss?</p>
+                        <p className="text-gray-300 text-xs mt-1">5:25 PM</p>
+                      </div>
+                    </div>
+
+                    {/* AI Message */}
+                    <div className="flex items-start gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">You&apos;re booked! For weight loss, I&apos;d recommend our Spin classes (Mon/Wed/Fri 7am) and Strength Training (Tue/Thu 6pm). Want me to add you to those too?</p>
+                        <p className="text-gray-400 text-xs mt-1">5:25 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Customer Message */}
+                    <div className="flex items-end gap-2 justify-end">
+                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
+                        <p className="text-white text-sm">That would be amazing, thank you! 💪</p>
+                        <p className="text-gray-300 text-xs mt-1">5:26 PM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Carousel Indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                {[0, 1, 2].map((index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentChat(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      currentChat === index ? 'bg-purple-500 w-6' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-gray-300 max-w-3xl mx-auto">
+              See how our clients use AI agents to provide instant 24/7 customer service, automatically book appointments,
+              answer questions, and engage with their customers - all while sounding completely natural and personalized.
+            </p>
           </div>
         </div>
       </div>
