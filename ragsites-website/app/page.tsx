@@ -509,6 +509,17 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Privacy Policy Section */}
+      <div className="relative bg-slate-950/40 border-t border-white/10">
+        <div className="mx-auto max-w-4xl px-6 py-12 lg:px-8 text-center">
+          <h3 className="text-2xl font-semibold text-white mb-3">Privacy Policy</h3>
+          <p className="text-gray-300">
+            We do not sell your information and are not liable for any leakage of your data. For the full privacy
+            policy, please email <a href="mailto:ragsites@gmail.com" className="text-blue-400 underline">ragsites@gmail.com</a>.
+          </p>
+        </div>
+      </div>
+
       {/* Footer */}
       <footer className="relative bg-slate-900 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
